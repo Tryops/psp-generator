@@ -1,5 +1,5 @@
 # PSP Generator
-Ein Baum-Generator-Tool für einfache Projektstruktur-Pläne
+Ein Baum-Generator-Tool basierend auf Text-Einrückungen für einfache Projektstruktur-Pläne
 
 Hier ausprobieren: [PSP Generator](https://tryops.github.io/psp-generator/)
 
