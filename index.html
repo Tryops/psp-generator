@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="css/skeleton.css">
+	<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+	<script src="https://d3js.org/d3.v3.min.js" defer></script>
+	<script src="js/script.js" defer></script>
+	<title>PSP Generator</title>
+</head>
+
+<body>
+
+	<header>
+		<div id="top">
+			<div id="title">
+				<!--img src="res/logo-light.png" width="100%"-->
+				<h4>PSP Generator</h4>
+			</div>
+
+			<hr>
+			
+			<button id="eval" class="button-primary">&rarr; Generate</button>
+			<!--select>
+				<option value="1">Tab Width: 1</option>
+				<option value="2" selected>Tab Width: 2</option>
+				<option value="3">Tab Width: 3</option>
+				<option value="4">Tab Width: 4</option>
+				<option value="5">Tab Width: 5</option>
+				<option value="6">Tab Width: 6</option>
+				<option value="7">Tab Width: 7</option>
+				<option value="8">Tab Width: 8</option>
+			</select-->
+			<button id="download">&darr; Export SVG</button>
+			<button id="toggle">&#11150; horizontal/vertical</button>
+
+			<hr>
+
+			<div class="check"><label for="numbered"><input type="checkbox" id="numbered" name="numbered" value="" checked/>Auto Numbered</label></div>
+			<div class="check"><label for="rect"><input type="checkbox" id="rect" name="numbered" value="" checked/>Rectangles</label></div>
+			
+			<hr>
+
+			<label for="node-width">Node width: <div></div></label>
+			<input id="node-width" type="range" min="50" max="300" value="170">
+			<label for="node-dist-h">Horizontal distance: <div></div></label>
+			<input id="node-dist-h" type="range" min="100" max="500" value="150">
+			<label for="node-dist-v">Vertical distance: <div></div></label>
+			<input id="node-dist-v" type="range" min="50" max="500" value="200">
+			<!--expand collapse all?-->
+		</div>
+		<div id="bottom">
+			<a href="https://github.com/Tryops/psp-generator">Project on GitHub</a>
+		</div>
+	</header>
+
+	<textarea id="input" contenteditable>
+// Hier mit Tabs &#8633; den PSP aufbauen: 
+// Zeilen mit "//" werden ignoriert. 
+// Meilensteine mit "&lt;&gt;" am Anfang. 
+// Leere Zeilen sind erlaubt.
+// Der Graph ist interaktiv, zum Ausklappen den Text klicken. 
+// Zum Schluss als SVG exportieren oder Screenshot machen. 
+
+Laufshirt.at
+	Projektstartphase Planung
+		Vertrag mit PAG unterzeichnen
+		Kick-Off-Meeting halten
+		Umfeldanalyse + Risiko/Marketing durchführen
+		OSP erstellen
+		PSP erstellen
+		&lt;&gt; Planung abgenommen
+	Realisierung
+		Technische Planung
+		Umsetzung
+		Testen
+	Abschluss
+		Doku fertigstellen
+		Abnahme durchführen
+		Projekt abgenommen
+		P-Abschlussbericht
+		Lessons learned durchführen
+		Feier / Team auflösen
+		&lt;&gt; Projekt abgeschlossen
+	</textarea>
+	<div id="tree"></div>
+	
+</body>
+</html>

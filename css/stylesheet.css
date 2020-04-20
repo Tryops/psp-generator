@@ -1,0 +1,142 @@
+
+.node {
+    cursor: pointer;
+}
+
+.vertical {
+	
+}
+
+.node circle {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 3px;
+}
+
+.node text {
+  font: 12px sans-serif;
+  border: 1px solid black;
+  padding: 5px;
+}
+
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 2px;
+}
+
+#tree {
+	height: 100%;
+	/* width: 100%; */
+	background-color: white;
+	flex: 1 1 auto;
+}
+
+input[type='checkbox'] {
+	display: inline;
+	vertical-align: middle;
+	margin: 3px;
+}
+
+hr {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border-color: #646464;
+}
+
+.check {
+	/* text-align: center; */
+	margin-left: 10px;
+}
+
+
+* {
+	font-family: calibri;
+	box-sizing: border-box;
+}
+
+html {
+	height: 100%;
+	width: 100%;
+}
+
+body, main {
+	min-width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #4f4f4f;
+	margin: 0px;
+}
+
+.error {
+	border: 1px solid tomato;
+	background-color: lightsalmon;
+}
+
+textarea {
+	width: 600px;
+	resize: horizontal;
+	padding: 5px;
+	margin: 0;
+	min-height: 100%;
+	border-radius: 0px;
+	font-family: "Consolas", monospace;
+	overflow: scroll;
+	background-color: #f1f1f1;
+	-moz-tab-size : 4;
+      -o-tab-size : 4;
+         tab-size : 4;
+}
+
+textarea:focus {
+	border: 1px solid LightSkyBlue;
+}
+
+h4 {
+	text-align: center;
+	font-weight: 400;
+}
+
+select {
+	color: #555555;
+	margin: 5px;
+}
+
+header {
+	min-height: 100%;
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between; 
+	align-items: center;
+	color: white;
+	background-color: #4f4f4f;
+	/* width: 500px; */
+}
+
+#top {
+	display: flex;
+	flex-direction: column;
+	justify-content: start; 
+	align-items: center;
+}
+
+#top > * {
+	min-width: 100%;
+}
+
+img {
+	margin: 20px auto;
+}
+
+button {
+	font-size: 12px;
+}
+
+p {
+	margin: 0;
+}
+
+
