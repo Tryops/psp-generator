@@ -4,17 +4,19 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" type="text/css" href="css/skeleton.css">
 	<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
-	<script src="https://d3js.org/d3.v3.min.js" defer></script>
+	<script src="js/d3.v3.min.js"></script>
+	<script src="js/saveSvgAsPng.js"></script>
 	<script src="js/script.js" defer></script>
+	<link rel="shortcut icon" href="res/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="res/favicon.ico" type="image/x-icon">
 	<title>PSP Generator</title>
 </head>
 
 <body>
-
 	<header>
 		<div id="top">
 			<div id="title">
-				<!--img src="res/logo-light.png" width="100%"-->
+				<img src="res/icon-light.png" width="30px">
 				<h4>PSP Generator</h4>
 			</div>
 
@@ -31,21 +33,26 @@
 				<option value="7">Tab Width: 7</option>
 				<option value="8">Tab Width: 8</option>
 			</select-->
-			<button id="download">&darr; Export SVG</button>
+			<button id="download">&darr; Export PNG</button>
+			<button id="link-gen">&#8689; Create Link</button>
 			<button id="toggle">&#11150; horizontal/vertical</button>
 
 			<hr>
 
-			<div class="check"><label for="numbered"><input type="checkbox" id="numbered" name="numbered" value="" checked/>Auto Numbered</label></div>
-			<div class="check"><label for="rect"><input type="checkbox" id="rect" name="numbered" value="" checked/>Rectangles</label></div>
+			<div class="check"><label for="numbered"><input type="checkbox" id="numbered" name="numbered" value="" checked>Auto numbered</label></div>
+			<div class="check"><label for="rect"><input type="checkbox" id="rect" name="numbered" value="" checked>Rectangles</label></div>
+			<div class="check"><label for="text-centered"><input type="checkbox" id="text-centered" name="text-centered" value="" checked>Text centered</label></div>
 			
 			<hr>
 
-			<label for="node-width">Node width: <div></div></label>
+			<label for="node-width">&#129112; Box width: <div></div></label>
 			<input id="node-width" type="range" min="50" max="400" value="170">
-			<label for="node-dist-h">Horizontal distance: <div></div></label>
+			<label for="node-width">&#129113; Box height: <div></div></label>
+			<input id="node-height" type="range" min="20" max="200" value="30">
+			<hr>
+			<label for="node-dist-h">&#129112; Horizontal distance: <div></div></label>
 			<input id="node-dist-h" type="range" min="20" max="500" value="150">
-			<label for="node-dist-v">Vertical distance: <div></div></label>
+			<label for="node-dist-v">&#129113; Vertical distance: <div></div></label>
 			<input id="node-dist-v" type="range" min="20" max="500" value="200">
 			<!--expand collapse all?-->
 		</div>
@@ -55,12 +62,12 @@
 	</header>
 
 	<textarea id="input" contenteditable>
-// Hier mit Tabs &#8633; den PSP aufbauen: 
-// Zeilen mit "//" werden ignoriert. 
-// Meilensteine mit "&lt;&gt;" am Anfang. 
+// Hier mit Tabs den PSP aufbauen (nicht Spaces!):
+// Zeilen mit "//" werden ignoriert.
+// Meilensteine mit "&lt;&gt;" am Anfang.
 // Leere Zeilen sind erlaubt.
-// Der Graph ist interaktiv, zum Ausklappen den Text klicken. 
-// Zum Schluss als SVG exportieren oder Screenshot machen. 
+// Der Graph ist interaktiv, zum Ausklappen der blauen Boxen den Text klicken.
+// Zum Schluss raus zoomen und als PNG exportieren.
 
 Laufshirt.at
 	Projektstartphase Planung
@@ -84,6 +91,13 @@ Laufshirt.at
 		&lt;&gt; Projekt abgeschlossen
 	</textarea>
 	<div id="tree"></div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+        	<span class="close-button">&times;</span>
+		    <div id="modal-content-paste"></div>
+		</div>
+    </div>
 	
 </body>
 </html>
