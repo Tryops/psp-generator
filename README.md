@@ -6,7 +6,7 @@ Hier ausprobieren: [PSP Generator](https://tryops.github.io/psp-generator/)
 ![Screenshot](res/screenshot.png)
 
 ## Anleitung
-- Mit Tabs den PSP im TExtfeld aufbauen oder hineinkopieren (Wichtig: Es müssen Tabs sein, keine Spaces!):
+- Mit Tabs den PSP im Textfeld aufbauen oder hineinkopieren (Wichtig: Es müssen Tabs sein, keine Spaces!):
   - Zeilen mit `//` werden ignoriert (Kommentare).
   - Knoten/Boxen werden als Meilensteine dargestellt, wenn der Text mit `<>` beginnt (z.B. `<> Planung abgenommen`).
   - Leere Zeilen sind erlaubt.
@@ -20,6 +20,7 @@ Hier ausprobieren: [PSP Generator](https://tryops.github.io/psp-generator/)
 - Es lassen sich auch Links für einen PSP erstellen (`CREATE LINK`). 
   - Wird der erstellte Link aufgerufen, wird der verlinkte PSP wieder hergestellt. 
   - Dadurch kannn man den PSP später nochmals interaktiv ansehen. 
+  - Das Textfeld kann hierfür auch "ausgeblendet" werden (an der rechten unteren Ecke das Textfeld ganz nach links ziehen). 
 
 
 Inspiriert von [Text2MindMap](https://tobloef.com/text2mindmap/)
