@@ -151,6 +151,10 @@ p {
 	margin: 0;
 }
 
+sup {
+	margin-bottom: 5px;
+}
+
 /* from https://sabe.io/tutorials/how-to-create-modal-popup-box */
 .modal {
     position: fixed;
@@ -171,7 +175,7 @@ p {
     transform: translate(-50%, -50%);
     background-color: white;
     padding: 1rem 1.5rem;
-    width: 24rem;
+    width: 28rem;
     border-radius: 0.4rem;
 }
 .close-button {

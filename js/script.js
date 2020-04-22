@@ -60,35 +60,37 @@ document.querySelector("input[type='range']#node-dist-h").addEventListener("inpu
 
 const linkContent = 
 	`<h6>Share this tree via link:</h6>
+    <sup><i>This link may get very long, share at own risk!</i></sup>
     <input type="text" name="link" id="link" value="">
-    <sub>This link is compressed.</sub>`;
+    <button id="copy-final">Copy</button>`;
 const pngContent = 
 	`<h6>Change upscaling factor:</h6>
-    <input id="scale" type="range" min="1" max="15" step="0.1" value="2">
-    <span id="scale-val">2</span>
+	<sup><i>Export can take a while, please wait!</i></sup>
+    <input id="scale" type="range" min="1" max="12" step="0.1" value="2">
+    <span id="scale-val">2x</span>
     <button id="download-final">&darr; Export</button>`;
 
-function exportLinkText() {
+function exportLinkText() { // Idea: Use pastebin service to store text and get id for link and then in reverse again. 
 	setModalContent(linkContent);
-	const link = /*"https://"+*/ "tryops.github.io/psp-generator?t=" + encodeURI(textarea.value).compress();
+	toggleModal();
+	const link = /*"https://"+*/"tryops.github.io/psp-generator?t=" + encodeURI(textarea.value);//.compress();
 	let linkElem = document.querySelector("#link");
 	linkElem.value = link;
-	linkElem.select();
-	linkElem.setSelectionRange(0, 99999);
-	document.execCommand("copy");
-	toggleModal();
+	document.querySelector("#copy-final").addEventListener("click", e => {
+		linkElem.select();
+		linkElem.setSelectionRange(0, 99999);
+		document.execCommand("copy");
+		e.target.innerHTML = "Copied!";
+		setTimeout(() => e.target.innerHTML = "Copy", 2000);
+	});
 }
 
 function getInputLinkText() {
-	try {
-		const queryString = window.location.search;
-		const urlParams = new URLSearchParams(queryString);
-		const treeString = urlParams.get("t").decompress();
-		return treeString;
-	} catch(e) {
-		return "";
-	}
-	
+	const queryString = window.location.search;
+	const urlParams = new URLSearchParams(queryString);
+	let treeString = urlParams.get("t");
+	//treeString = treeString.decompress();
+	return treeString;
 }
 
 function setTextareaText(text) {
@@ -172,7 +174,7 @@ function savePng() {
 	toggleModal();
 	const slider = document.querySelector("input#scale");
 	const scaleSpan = document.querySelector("span#scale-val");
-	slider.addEventListener("input", e => scaleSpan.innerHTML = slider.value);
+	slider.addEventListener("input", e => scaleSpan.innerHTML = slider.value + "x");
 
 	document.querySelector("button#download-final").addEventListener("click", e => {
 		const scaleVal = slider.value;
