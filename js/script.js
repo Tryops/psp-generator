@@ -69,7 +69,7 @@ const pngContent =
 
 function exportLinkText() {
 	setModalContent(linkContent);
-	const link = "https://tryops.github.io/psp-generator?tree=" + encodeURI(textarea.value);
+	const link = /*"https://"+*/ "tryops.github.io/psp-generator?t=" + encodeURI(textarea.value).compress();
 	let linkElem = document.querySelector("#link");
 	linkElem.value = link;
 	linkElem.select();
@@ -81,7 +81,7 @@ function exportLinkText() {
 function getInputLinkText() {
 	const queryString = window.location.search;
 	const urlParams = new URLSearchParams(queryString);
-	const treeString = urlParams.get("tree");
+	const treeString = urlParams.get("t").decompress();
 	return treeString;
 }
 
