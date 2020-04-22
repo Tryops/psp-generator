@@ -60,7 +60,8 @@ document.querySelector("input[type='range']#node-dist-h").addEventListener("inpu
 
 const linkContent = 
 	`<h6>Share this tree via link:</h6>
-    <input type="text" name="link" id="link" value="">`;
+    <input type="text" name="link" id="link" value="">
+    <sub>This link is compressed.</sub>`;
 const pngContent = 
 	`<h6>Change upscaling factor:</h6>
     <input id="scale" type="range" min="1" max="15" step="0.1" value="2">
@@ -79,10 +80,15 @@ function exportLinkText() {
 }
 
 function getInputLinkText() {
-	const queryString = window.location.search;
-	const urlParams = new URLSearchParams(queryString);
-	const treeString = urlParams.get("t").decompress();
-	return treeString;
+	try {
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+		const treeString = urlParams.get("t").decompress();
+		return treeString;
+	} catch(e) {
+		return "";
+	}
+	
 }
 
 function setTextareaText(text) {
