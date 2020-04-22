@@ -84,7 +84,6 @@ function exportLinkText() { // Idea: Use pastebin service to store text and get 
 	setModalContent(linkContent);
 	toggleModal();
 	const link = /*"https://"+*/"tryops.github.io/psp-generator?" + stringifyGETParams({
-		"t": textarea.value/*.compress()*/, 
 		"v": viewToggle.classList.contains("vertical"),
 		"n": autoNumbered, 
 		"r": drawRects, 
@@ -92,7 +91,8 @@ function exportLinkText() { // Idea: Use pastebin service to store text and get 
 		"rw": rectW, 
 		"rh": rectH, 
 		"dh": horizontalDist, 
-		"dv": depthFactor
+		"dv": depthFactor, 
+		"t": textarea.value/*.compress()*/
 	});
 	let linkElem = document.querySelector("#link");
 	linkElem.value = link;
@@ -112,9 +112,9 @@ function getInputLinkText() {
 	if(urlParams.get("t")) textarea.value = urlParams.get("t")/*.decompress()*/;
 	if(parseBool(urlParams.get("v"))) viewToggle.click(); // Quick and dirty, not very elegant...
 
-	autoNumbered = parseBool(urlParams.get("n"));
-	drawRects = parseBool(urlParams.get("r"));
-	textCentered = parseBool(urlParams.get("c"));
+	if(urlParams.get("n")) autoNumbered = parseBool(urlParams.get("n"));
+	if(urlParams.get("n")) drawRects = parseBool(urlParams.get("r"));
+	if(urlParams.get("n")) textCentered = parseBool(urlParams.get("c"));
 
 	if(urlParams.get("rw")) rectW = urlParams.get("rw");
 	if(urlParams.get("rh")) rectH = urlParams.get("rh");
