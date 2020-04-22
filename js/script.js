@@ -17,7 +17,16 @@ document.querySelector("button#download").addEventListener("click", savePng);
 document.querySelector("button#link-gen").addEventListener("click", exportLinkText);
 
 let viewToggle = document.querySelector("button#toggle");
-viewToggle.addEventListener("click", e => { viewToggle.classList.toggle("vertical"); update(); });
+viewToggle.addEventListener("click", e => {
+	viewToggle.classList.toggle("vertical");
+	update();
+	let labelV = document.querySelector("label[for='node-dist-v']");
+	let labelH = document.querySelector("label[for='node-dist-h']");
+	let copyV = labelV.cloneNode(true);
+	let copyH = labelH.cloneNode(true);
+	labelV.replaceWith(copyH);
+	labelH.replaceWith(copyV);
+});
 let drawRects = true;
 let autoNumbered = true;
 let textCentered = true;
@@ -54,7 +63,8 @@ document.querySelector("input[type='range']#node-dist-v").addEventListener("inpu
 	update();
 });
 document.querySelector("input[type='range']#node-dist-h").addEventListener("input", e => {
-	tree = d3.layout.tree().nodeSize([e.target.value, 40]);
+	horizontalDist = e.target.value
+	tree = d3.layout.tree().nodeSize([horizontalDist, 40]); // minimal change to not init everything new
 	update();
 });
 
@@ -73,7 +83,17 @@ const pngContent =
 function exportLinkText() { // Idea: Use pastebin service to store text and get id for link and then in reverse again. 
 	setModalContent(linkContent);
 	toggleModal();
-	const link = /*"https://"+*/"tryops.github.io/psp-generator?t=" + encodeURI(textarea.value);//.compress();
+	const link = /*"https://"+*/"tryops.github.io/psp-generator?" + stringifyGETParams({
+		"t": textarea.value/*.compress()*/, 
+		"v": viewToggle.classList.contains("vertical"),
+		"n": autoNumbered, 
+		"r": drawRects, 
+		"c": textCentered, 
+		"rw": rectW, 
+		"rh": rectH, 
+		"dh": horizontalDist, 
+		"dv": depthFactor
+	});
 	let linkElem = document.querySelector("#link");
 	linkElem.value = link;
 	document.querySelector("#copy-final").addEventListener("click", e => {
@@ -88,14 +108,37 @@ function exportLinkText() { // Idea: Use pastebin service to store text and get 
 function getInputLinkText() {
 	const queryString = window.location.search;
 	const urlParams = new URLSearchParams(queryString);
-	let treeString = urlParams.get("t");
-	//treeString = treeString.decompress();
-	return treeString;
+
+	if(urlParams.get("t")) textarea.value = urlParams.get("t")/*.decompress()*/;
+	if(parseBool(urlParams.get("v"))) viewToggle.click(); // Quick and dirty, not very elegant...
+
+	autoNumbered = parseBool(urlParams.get("n"));
+	drawRects = parseBool(urlParams.get("r"));
+	textCentered = parseBool(urlParams.get("c"));
+
+	if(urlParams.get("rw")) rectW = urlParams.get("rw");
+	if(urlParams.get("rh")) rectH = urlParams.get("rh");
+	if(urlParams.get("dh")) horizontalDist = urlParams.get("dh");
+	if(urlParams.get("dv")) depthFactor = urlParams.get("dv");
+
+	document.querySelector("input[type='checkbox']#numbered")		.checked = autoNumbered;
+	document.querySelector("input[type='checkbox']#rect")			.checked = drawRects;
+	document.querySelector("input[type='checkbox']#text-centered")	.checked = textCentered;
+	document.querySelector("input[type='range']#node-width")		.value = rectW;
+	document.querySelector("input[type='range']#node-height")		.value = rectH;
+	document.querySelector("input[type='range']#node-dist-v")		.value = depthFactor;
+	document.querySelector("input[type='range']#node-dist-h")		.value = horizontalDist;
 }
 
-function setTextareaText(text) {
-	textarea.value = text;
+function stringifyGETParams(params) {
+    var esc = encodeURIComponent;
+    var query = Object.keys(params)
+        .map(k => esc(k) + '=' + esc(params[k]))
+        .join('&');
+    return query;
 }
+
+function parseBool(val) { return val === true || val === "true"; }
 
 function generateTree() {
 	root = tabStringToJSON(textarea.value);
@@ -221,9 +264,10 @@ var i = 0,
 	duration = 750,
 	rectW = 170,
 	rectH = 30,
+	horizontalDist = 200,
 	depthFactor = 150;
 
-var tree = d3.layout.tree().nodeSize([200, 40]);
+var tree = d3.layout.tree().nodeSize([horizontalDist, 40]); // 200 = default horizontal distance
 var diagonal = d3.svg.diagonal()
 	.projection(d => [trans(d).x + rectW / 2, trans(d).y + rectH / 2]);
 
@@ -236,10 +280,7 @@ var svg = d3.select("div#tree").append("svg").attr("width", "100%").attr("height
 zm.translate([350, 20]);
 
 // Get tree text from link
-let linkText = getInputLinkText();
-if(linkText) {
-	setTextareaText(linkText);
-}
+getInputLinkText();
 generateTree(); // First init tree from textarea
 attachStyleToSvg();
 
