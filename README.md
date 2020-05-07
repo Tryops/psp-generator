@@ -12,7 +12,7 @@ Mit Tabs den PSP im Textfeld aufbauen oder hineinkopieren. Wichtig: Es müssen T
 - Leere Zeilen sind erlaubt.
 
 ## PSP generieren
-Mit dem **GENERATE** Button wird der PSP generiert, bei Änderungen am PSP am besten immer neu generieren (ist nicht automatisch). Der Graph ist interaktiv, es lässt sich zoomen und verschieben, blaube Boxen lassen sich mit Klicken ausklappen, weiße sind bereits ausgeklappt.
+Mit dem **GENERATE** Button wird der PSP generiert, bei Änderungen am PSP am besten immer neu generieren (ist nicht automatisch). Der Graph ist interaktiv, es lässt sich rein- und rauszoomen (scrollen) und verschieben, blaue Boxen "enthalten" noch ihre Unterpunkte und lassen sich mit Klicken ausklappen, weiße Boxen sind bereits ausgeklappt.
 Falls Boxen zu eng aneinander liegen lassen sich bei der Seitenleiste beliebige Anpassungen vornehmen (Größe, Abstand, keine Box, zentrierter Text, usw.). 
 Der PSP-Code wird automatisch für jede Box generiert (deaktivierbar). 
 
