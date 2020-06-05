@@ -1,0 +1,220 @@
+
+.node {
+    cursor: pointer;
+}
+
+.node circle {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 3px;
+}
+
+.node text {
+  font: 12px sans-serif;
+}
+
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 2px;
+}
+
+#tree {
+	height: 100%;
+	width: auto;
+	background-color: white;
+	flex: 1 1 auto;
+}
+
+input[type='checkbox'] {
+	display: inline;
+	vertical-align: middle;
+	margin: 3px;
+}
+
+hr {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border-color: #646464;
+}
+
+.check {
+	/* text-align: center; */
+	margin-left: 10px;
+}
+
+
+* {
+	font-family: calibri;
+	box-sizing: border-box;
+}
+
+html {
+	height: 100%;
+	width: 100%;
+}
+
+body, main {
+	min-width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #4f4f4f;
+	margin: 0px;
+	overflow: hidden;
+}
+
+.error {
+	border: 1px solid tomato;
+	background-color: lightsalmon;
+}
+
+textarea {
+	flex: 0 0 auto;
+	width: 400px;
+	resize: horizontal;
+	scrollbar-width: thin;
+	padding: 5px;
+	margin: 0;
+	min-height: 100%;
+	border-radius: 0px;
+	font-family: "Consolas", monospace;
+	font-size: 11pt;
+	overflow: scroll;
+	white-space: pre;
+	background-color: #f1f1f1;
+	-moz-tab-size : 4;
+      -o-tab-size : 4;
+         tab-size : 4;
+}
+
+textarea:focus {
+	border: 1px solid LightSkyBlue;
+}
+
+h4 {
+	text-align: center;
+	font-weight: 400;
+}
+
+h6 {
+	font-weight: 400;
+}
+
+select {
+	color: #555555;
+	margin: 5px;
+}
+
+header {
+	flex: 0 0 auto;
+	min-height: 100%;
+	height: 100%;
+	overflow-y: auto !important;
+	scrollbar-width: thin;
+	width: auto;
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between; 
+	align-items: center;
+	color: white;
+	background-color: #4f4f4f;
+}
+
+#top {
+	display: flex;
+	flex-direction: column;
+	justify-content: start; 
+	align-items: center;
+}
+
+#top > * {
+	min-width: 100%;
+}
+
+#bottom {
+	padding-bottom: 5px;
+}
+
+#title {
+	display: flex;
+	flex-direction: row;
+	justify-content: start; 
+	align-items: center;
+}
+
+img {
+	margin: 5px;
+	display: inline;
+}
+
+#title > h4 {
+	font-size: 2.6rem;
+}
+
+button {
+	font-size: 12px;
+}
+
+p {
+	margin: 0;
+}
+
+sup {
+	margin-bottom: 5px;
+}
+
+/* from https://sabe.io/tutorials/how-to-create-modal-popup-box */
+.modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.0);
+    transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+}
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 1rem 1.5rem;
+    width: 28rem;
+    border-radius: 0.4rem;
+}
+.close-button {
+    float: right;
+    width: 1.5rem;
+    line-height: 1.6rem;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    background-color: lightgray;
+}
+.close-button:hover {
+    background-color: darkgray;
+}
+.show-modal {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1.1);
+    transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+}
+
+#scale-val {
+	font-weight: 400;
+}
+
+#modal-content-paste {
+	display: flex;
+	flex-direction: column;
+	justify-content: start; 
+	align-items: center;
+}
