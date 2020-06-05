@@ -37,7 +37,6 @@
 			<button id="download">&darr; Export PNG</button>
 			<button id="link-gen">&#8689; Create Link</button>
 			<button id="toggle">&#11150; horizontal/vertical</button>
-			<button id="expand">&#128945; expand/collapse all</button>
 
 			<hr>
 
@@ -47,15 +46,16 @@
 			
 			<hr>
 
-			<label for="node-dist-h">&#129112; Horizontal distance: <div></div></label>
-			<input id="node-dist-h" type="range" min="20" max="500" value="200">
-			<label for="node-dist-v">&#129113; Vertical distance: <div></div></label>
-			<input id="node-dist-v" type="range" min="20" max="500" value="150">
-			<hr>
 			<label for="node-width">&#129112; Box width: <div></div></label>
 			<input id="node-width" type="range" min="50" max="400" value="170">
 			<label for="node-width">&#129113; Box height: <div></div></label>
 			<input id="node-height" type="range" min="20" max="200" value="30">
+			<hr>
+			<label for="node-dist-h">&#129112; Horizontal distance: <div></div></label>
+			<input id="node-dist-h" type="range" min="20" max="500" value="200">
+			<label for="node-dist-v">&#129113; Vertical distance: <div></div></label>
+			<input id="node-dist-v" type="range" min="20" max="500" value="150">
+			<!--expand collapse all?-->
 		</div>
 		<div id="bottom">
 			<a href="https://github.com/Tryops/psp-generator">Project on GitHub</a>
@@ -67,8 +67,7 @@
 // Zeilen mit "//" werden ignoriert.
 // Meilensteine mit "&lt;&gt;" am Anfang.
 // Leere Zeilen sind erlaubt.
-// Der Graph ist interaktiv: 
-// z.B.: blaue Boxen können ausgeklappt werden.
+// Der Graph ist interaktiv, zum Ausklappen der blauen Boxen den Text klicken.
 // Zum Schluss raus zoomen und als PNG exportieren.
 
 Laufshirt.at

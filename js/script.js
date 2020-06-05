@@ -15,12 +15,11 @@ document.querySelector("textarea#input").addEventListener("keydown", e => {
 
 document.querySelector("button#download").addEventListener("click", savePng);
 document.querySelector("button#link-gen").addEventListener("click", exportLinkText);
-document.querySelector("button#expand").addEventListener("click", expandAllNodes);
 
 let viewToggle = document.querySelector("button#toggle");
 viewToggle.addEventListener("click", e => {
 	viewToggle.classList.toggle("vertical");
-	update(root);
+	update();
 	let labelV = document.querySelector("label[for='node-dist-v']");
 	let labelH = document.querySelector("label[for='node-dist-h']");
 	let copyV = labelV.cloneNode(true);
@@ -28,12 +27,10 @@ viewToggle.addEventListener("click", e => {
 	labelV.replaceWith(copyH);
 	labelH.replaceWith(copyV);
 });
-
-// Control variables: 
 let drawRects = true;
 let autoNumbered = true;
 let textCentered = true;
-let isExpanded = true;
+
 let textarea = document.querySelector("textarea#input");
 
 document.querySelector("button#eval").addEventListener("click", e => {
@@ -55,19 +52,15 @@ document.querySelector("input[type='checkbox']#text-centered").addEventListener(
 document.querySelector("input[type='range']#node-width").addEventListener("input", e => {
 	rectW = e.target.value;
 	//document.querySelector("label[for='"+e.target.id+"'] > div").innerHTML = e.target.value + "px";
-	update(root);
+	update();
 });
 document.querySelector("input[type='range']#node-height").addEventListener("input", e => {
 	rectH = e.target.value;
-	update(root);
+	update();
 });
-// For immediate feedback when changing size: 
-document.querySelector("input[type='range']#node-width").addEventListener("mouseup", e => generateTree());
-document.querySelector("input[type='range']#node-height").addEventListener("mouseup", e => generateTree());
-
 document.querySelector("input[type='range']#node-dist-v").addEventListener("input", e => {
 	depthFactor = e.target.value;
-	update(root);
+	update();
 });
 document.querySelector("input[type='range']#node-dist-h").addEventListener("input", e => {
 	horizontalDist = e.target.value
@@ -75,7 +68,6 @@ document.querySelector("input[type='range']#node-dist-h").addEventListener("inpu
 	update();
 });
 
-// Modal variables: 
 const linkContent = 
 	`<h6>Share this tree via link:</h6>
     <sup><i>This link may get very long, share at own risk!</i></sup>
@@ -87,56 +79,6 @@ const pngContent =
     <input id="scale" type="range" min="1" max="12" step="0.1" value="2">
     <span id="scale-val">2x</span>
     <button id="download-final">&darr; Export</button>`;
-
-// Tree diagram variables:
-var margin = {
-	top: 20,
-	right: 120,
-	bottom: 20,
-	left: 120
-},
-width = 960 - margin.right - margin.left,
-height = 800 - margin.top - margin.bottom;
-
-var root = tabStringToJSON(textarea.value);
-
-var i = 0,
-	duration = 750,
-	rectW = 170,
-	rectH = 30,
-	horizontalDist = 200,
-	depthFactor = 150;
-
-var tree = d3.layout.tree().nodeSize([horizontalDist, 40]); // 200 = default horizontal distance
-var diagonal = d3.svg.diagonal()
-	.projection(d => [trans(d).x + rectW / 2, trans(d).y + rectH / 2]);
-
-
-var svg = d3.select("div#tree").append("svg").attr("width", "100%").attr("height", "100%")
-	.call(zm = d3.behavior.zoom().scaleExtent([0.125,3]).on("zoom", redraw)).append("g")
-	.attr("transform", "translate(" + 350 + "," + 20 + ")");
-
-// necessary so that zoom knows where to zoom and unzoom from
-zm.translate([350, 20]);
-
-getInputLinkText(); // Get tree text from link
-generateTree(); 	// First init tree from textarea
-attachStyleToSvg();
-
-// --- Functions: --- //
-
-function expandAllNodes(event) {
-	if(isExpanded) {
-		root.children.forEach(collapse);
-		collapse(root);
-		isExpanded = false;
-	} else {
-		root._children.forEach(expand);
-		expand(root);
-		isExpanded = true;
-	}
-	update(root);
-}
 
 function exportLinkText() { // Idea: Use pastebin service to store text and get id for link and then in reverse again. 
 	setModalContent(linkContent);
@@ -283,6 +225,19 @@ function savePng() {
 		saveSvgAsPng(svgElem, "diagram.png", {scale: (scaleVal ? scaleVal : 2)});
 		toggleModal();
 	});
+	
+
+	// svgEl.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+	// var svgData = svgEl.outerHTML;
+	// var preface = '<?xml version="1.0" standalone="no"?>\r\n';
+	// var svgBlob = new Blob([preface, svgData], {type:"image/svg+xml;charset=utf-8"});
+	// var svgUrl = URL.createObjectURL(svgBlob);
+	// var downloadLink = document.createElement("a");
+	// downloadLink.href = svgUrl;
+	// downloadLink.download = name;
+	// document.body.appendChild(downloadLink);
+	// downloadLink.click();
+	// document.body.removeChild(downloadLink);
 }
 
 function trans(d) {
@@ -293,6 +248,41 @@ function trans(d) {
 	copy.y0 = d.x0;
 	return viewToggle.classList.contains("vertical") ? copy : d;
 }
+
+var margin = {
+	top: 20,
+	right: 120,
+	bottom: 20,
+	left: 120
+},
+width = 960 - margin.right - margin.left,
+height = 800 - margin.top - margin.bottom;
+
+var root = tabStringToJSON(textarea.value);
+
+var i = 0,
+	duration = 750,
+	rectW = 170,
+	rectH = 30,
+	horizontalDist = 200,
+	depthFactor = 150;
+
+var tree = d3.layout.tree().nodeSize([horizontalDist, 40]); // 200 = default horizontal distance
+var diagonal = d3.svg.diagonal()
+	.projection(d => [trans(d).x + rectW / 2, trans(d).y + rectH / 2]);
+
+
+var svg = d3.select("div#tree").append("svg").attr("width", "100%").attr("height", "100%")
+	.call(zm = d3.behavior.zoom().scaleExtent([0.125,3]).on("zoom", redraw)).append("g")
+	.attr("transform", "translate(" + 350 + "," + 20 + ")");
+
+//necessary so that zoom knows where to zoom and unzoom from
+zm.translate([350, 20]);
+
+// Get tree text from link
+getInputLinkText();
+generateTree(); // First init tree from textarea
+attachStyleToSvg();
 
 function attachStyleToSvg() { // only call once!
 	let style = document.createElement("style");
@@ -331,18 +321,9 @@ function collapse(d) {
 		d._children = d.children;
 		d._children.forEach(collapse);
 		d.children = null;
-		if(d == root) { isExpanded = false; } // only not expanded if the root itself is collapsed!
 	}
 }
 
-function expand(d) {
-	if (d._children) {
-		d.children = d._children;
-		d.children.forEach(expand);
-		d._children = null;
-		isExpanded = true;
-	}
-}
 
 function update(source) {
 	// Compute the new tree layout.
@@ -365,7 +346,8 @@ function update(source) {
 		.attr("class", "node")
 		.attr("transform", function (d) {
 		return "translate(" + trans(source).x0 + "," + trans(source).y0 + ")";
-	}).on("click", click);
+	})
+		.on("click", click);
 
 	function getTextWidth(text) {
 		// re-use canvas object for better performance
@@ -521,20 +503,14 @@ function wrap(text, width) {
 
 // Toggle children on click.
 function click(d) {
-	toggleChildren(d);
-	update(d);
-}
-
-function toggleChildren(d) {
 	if (d.children) {
 		d._children = d.children;
 		d.children = null;
-		if(d == root) { isExpanded = false; } // only not expanded if the root itself is collapsed!
 	} else {
 		d.children = d._children;
 		d._children = null;
-		isExpanded = true;
 	}
+	update(d);
 }
 
 //Redraw for zoom
