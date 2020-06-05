@@ -14,6 +14,7 @@ Hier ausprobieren: [PSP Generator](https://tryops.github.io/psp-generator/)
 - Der Graph ist interaktiv, blaube Boxen lassen sich mit Klicken ausklappen.
 - Zum Anpassen lassen sich bei der Seitenleiste beliebige Einstellungen vornehmen.
 - Zum Schluss ganz hinaus zoomen (der ganze PSP muss sichtbar sein) und als PNG exportieren (`EXPORT PNG`).
+  - Damit der gesamte PSP sichtbar ist, kann der `EXPAND/COLLAPSE ALL` Button hilfreich sein. 
   - Als Upscale-Faktor einen passenden wählen (ausprobieren), sodass das Bild nicht verpixelt ist. 
   - Exportieren (_kann eine Weile dauern je nachdem wie groß das Bild ist_)!
   
